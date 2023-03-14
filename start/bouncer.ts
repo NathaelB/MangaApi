@@ -54,4 +54,10 @@ export const { actions } = Bouncer
 | NOTE: Always export the "policies" const from this file
 |****************************************************************
 */
-export const { policies } = Bouncer.registerPolicies({})
+export const { policies } = Bouncer.registerPolicies({
+  HelperPolicy: () => import('App/Policies/HelperPolicy'),
+  UserPolicy: () => import('App/Policies/UserPolicy'),
+  RolePolicy: () => import('App/Policies/RolePolicy'),
+  PermissionPolicy: () => import('App/Policies/PermissionPolicy'),
+  CategoriePolicy: () => import('App/Policies/CategoriePolicy')
+})
