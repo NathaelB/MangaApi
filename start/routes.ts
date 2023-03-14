@@ -19,9 +19,27 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import usersRoute from './routes/users'
 
 Route.group(() => {
   Route.group(() => {
 
+    Route.group(() => {
+      Route.group(() => {}).middleware('guest')
+      Route.group(() => {}).middleware('auth')
+    }).prefix('/authentication')
+
+    Route.group(() => {
+      Route.group(() => {
+        usersRoute()
+        Route.group(() => {}).prefix('/roles')
+        Route.group(() => {}).prefix('/permissions')
+      }).prefix('/accounts')
+
+      Route.group(() => {}).prefix('/products')
+      Route.group(() => {}).prefix('/orders')
+      Route.group(() => {}).prefix('/categories')
+
+    }).middleware('auth')
   }).prefix('/v1')
 }).prefix('/api')
