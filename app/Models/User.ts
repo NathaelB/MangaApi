@@ -7,13 +7,17 @@ import {
   beforeCreate,
   manyToMany,
   ManyToMany
-} from "@ioc:Adonis/Lucid/Orm";
-import {randomUUID} from "crypto";
-import Permission from "App/Models/Permission";
+} from '@ioc:Adonis/Lucid/Orm'
+import {randomUUID} from 'crypto'
+import Permission from 'App/Models/Permission'
+import Role from 'App/Models/Role'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: string
+
+  @column()
+  public username: string
 
   @column()
   public email: string
@@ -23,9 +27,12 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken: string | null
-  
+
   @manyToMany(() => Permission)
   public permissions: ManyToMany<typeof Permission>
+
+  @manyToMany(() => Role)
+  public roles: ManyToMany<typeof Role>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
