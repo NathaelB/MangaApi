@@ -11,15 +11,15 @@ export default class UserPolicy extends BasePolicy {
 
   public async view (user: User): Promise<boolean> {
     const permissions: string[] = await HelperPolicy.getPermissions(user)
-    return permissions.includes('view:user')
-      || permissions.includes('store:user')
-      || permissions.includes('update:user')
-      || permissions.includes('destroy:user')
+    return permissions.includes('user:view')
+      || permissions.includes('user:store')
+      || permissions.includes('user:update')
+      || permissions.includes('user:delete')
   }
 
   public async store (user: User): Promise<boolean> {
     const permissions: string[] = await HelperPolicy.getPermissions(user)
-    return permissions.includes('store:user')
+    return permissions.includes('user:store')
   }
 
   public async update (currentUser: User, user: User): Promise<boolean> {
@@ -29,7 +29,7 @@ export default class UserPolicy extends BasePolicy {
     if (roleCurrentUser.power <= roleUser.power) return false
 
     const permissions: string[] = await HelperPolicy.getPermissions(currentUser)
-    return permissions.includes('update:user')
+    return permissions.includes('user:update')
   }
 
   public async delete (currentUser: User, user: User) {
@@ -39,6 +39,6 @@ export default class UserPolicy extends BasePolicy {
     if (roleCurrentUser.power <= roleUser.power) return false
 
     const permissions: string[] = await HelperPolicy.getPermissions(currentUser)
-    return permissions.includes('delete:user')
+    return permissions.includes('user:delete')
   }
 }
