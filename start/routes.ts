@@ -19,7 +19,10 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import usersRoute from './routes/users'
+import accountsRoute from './routes/accounts'
+import productsRoute from './routes/products'
+import ordersRoute from './routes/orders'
+import categoriesRoute from './routes/categories'
 
 Route.group(() => {
   Route.group(() => {
@@ -30,16 +33,11 @@ Route.group(() => {
     }).prefix('/authentication')
 
     Route.group(() => {
-      Route.group(() => {
-        usersRoute()
-        Route.group(() => {}).prefix('/roles')
-        Route.group(() => {}).prefix('/permissions')
-      }).prefix('/accounts')
+      accountsRoute()
+      productsRoute()
+      ordersRoute()
+      categoriesRoute()
 
-      Route.group(() => {}).prefix('/products')
-      Route.group(() => {}).prefix('/orders')
-      Route.group(() => {}).prefix('/categories')
-
-    }).middleware('auth')
+    }).middleware('auth').prefix('/manager')
   }).prefix('/v1')
 }).prefix('/api')
