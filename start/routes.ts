@@ -19,7 +19,25 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import accountsRoute from './routes/accounts'
+import productsRoute from './routes/products'
+import ordersRoute from './routes/orders'
+import categoriesRoute from './routes/categories'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+Route.group(() => {
+  Route.group(() => {
+
+    Route.group(() => {
+      Route.group(() => {}).middleware('guest')
+      Route.group(() => {}).middleware('auth')
+    }).prefix('/authentication')
+
+    Route.group(() => {
+      accountsRoute()
+      productsRoute()
+      ordersRoute()
+      categoriesRoute()
+
+    }).middleware('auth').prefix('/manager')
+  }).prefix('/v1')
+}).prefix('/api')
