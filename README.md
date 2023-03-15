@@ -44,3 +44,5 @@ public async index ({ bouncer }: HttpContextContract) {
 
 ### Merise Schema
 ![Merise](./assets/merise.png)
+
+[PDF](https://github.com/NathaelB/MangaApi)
